@@ -38,6 +38,8 @@
 		0B73C6161C8551F000C4AFD9 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		0B73C6181C855FCE00C4AFD9 /* stringcat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stringcat.c; sourceTree = "<group>"; };
 		0B73C6191C855FCE00C4AFD9 /* stringcat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringcat.h; sourceTree = "<group>"; };
+		0B73C61B1C8573C600C4AFD9 /* strings_unit_test_input */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = strings_unit_test_input; sourceTree = "<group>"; };
+		0B73C61C1C8578E700C4AFD9 /* common_defs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common_defs.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,8 @@
 				0B73C6161C8551F000C4AFD9 /* utils.h */,
 				0B73C6181C855FCE00C4AFD9 /* stringcat.c */,
 				0B73C6191C855FCE00C4AFD9 /* stringcat.h */,
+				0B73C61B1C8573C600C4AFD9 /* strings_unit_test_input */,
+				0B73C61C1C8578E700C4AFD9 /* common_defs.h */,
 			);
 			path = strings;
 			sourceTree = "<group>";

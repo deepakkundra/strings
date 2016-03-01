@@ -15,6 +15,6 @@
  * @param str2 Test data input file
  * @return PASS or FAIL CAUSE
  */
-int unit_test_main(const char* str1, const char* str2);
+int unit_test_main(const char* str1, const char* str2, const char* str3);
 
 #endif /* unit_test_h */
