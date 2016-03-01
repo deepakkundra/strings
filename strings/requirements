@@ -1,0 +1,33 @@
+2/29/2016 - Initial Requirements
+
+We don't expect this to take more than ~1-2 hours of focused effort.  That said, we're still fine-tuning this test and how it is used in our interview process, so please feel free to ask us any clarifying questions, whether certain simplifying assumptions are alright, etc., especially if you feel like some part will take you an unreasonable amount of time to implement.
+
+Feel free to search for examples of how to use the POSIX pthreads API, any C syntax you might need, etc.  Please also do your best to solve the problems from a clean slate, without looking at existing implementations of the algorithms in the C libraries.  You may use libraries for printfs, malloc/free, file I/O and other standard functionality that you may want to use to test your code or manage your memory.  Please do not use any libraries for C string management in the core functions we've asked you to implement (you are welcome to use these as part of your test harness, or as part of file I/O you might use for testing, etc.)
+
+Please "reply all" to this thread with your solutions and any supporting documentation / test harnesses you wish to provide.  We should be able to compile, run, and test your code.
+
+Problems
+1) Implement a multithreaded function in C, using POSIX threads, to count the occurrences of a substring in a string.  Use at least 4 threads.  Assume the input string and substring are both null-terminated in valid memory locations.  Do not use any existing string-handling library functions.
+
+e.g.:
+unsigned int parallelSubstringCount(char *inputString, char *substring)
+{
+// TODO
+}
+
+2) Design and document an API for string concatenation functionality in C.  Implement the functionality your API provides.  Your solution should expose both stack-based and heap-based implementations to the client.  Do not use any existing string-handling library functions.
+
+3) Provide a compiling main routine that calls these functions, along with whatever test cases you use to test and validate your output.
+
+
+2/29/2016 - Requirements Clarification
+
+Did a pass on the exercise and have preliminary questions :-
+
+1. What is the max size for the input string? 0<= strlen() <= MAX_SIZE? //Since u mentioned it will be \0 terminated i put strlen to check for entry conditions
+
+2. I am not sure yet what algorithm to use here but just trying to get what kind of data can be part of the inputString and subString, may be there are optimizations possible if the data set is known. Can I assume each char to be A-Z, a-z and 0-9
+
+3. If I try to go with like a brute force linear search with modifications to parallelize by partitioning input data will that be acceptable, I guess in other words I am trying to ask if there is an algorithmic complexity or time constraint I should be trying to optimize with the solution?
+
+4. For the string cat API, when u say Heap based and Stack based API, do u mean that the caller of api is allocating memory dynamically and passing the var's via ref or the variables are in local scope and passed by value?
