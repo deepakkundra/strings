@@ -40,6 +40,7 @@
 		0B73C6191C855FCE00C4AFD9 /* stringcat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringcat.h; sourceTree = "<group>"; };
 		0B73C61B1C8573C600C4AFD9 /* strings_unit_test_input */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = strings_unit_test_input; sourceTree = "<group>"; };
 		0B73C61C1C8578E700C4AFD9 /* common_defs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common_defs.h; sourceTree = "<group>"; };
+		0B886F0A1C86926F007BD4E4 /* algorithm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = algorithm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				0B73C60E1C854A0500C4AFD9 /* requirements */,
+				0B886F0A1C86926F007BD4E4 /* algorithm */,
 			);
 			name = docs;
 			sourceTree = "<group>";
@@ -275,6 +277,7 @@
 				0B73C60C1C8548BB00C4AFD9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

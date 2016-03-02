@@ -47,5 +47,20 @@ void logConsole2(const char* str, const char* str2);
  */
 void logConsole3(const char* str, const char* str2, const char* str3);
 
+/*!
+ * @brief Utility to find strlen
+ * @param str String to find the string length
+ * @return The result of the function
+ */
+unsigned int get_string_len(const char* str);
+
+/*!
+ * @brief Utility to compare mem
+ * @param str1 array 1
+ * @param str2 array 2
+ * @param n size to compare
+ * @return The result is 0 if equal
+ */
+unsigned int is_mem_equal(const char *str1, const char *str2, int n);
 
 #endif /* utils_h */

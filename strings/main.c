@@ -22,7 +22,7 @@
  */
 int main(int argc, const char * argv[]) {
     int cmd_option = 0;
-    int cmd_option_threads = 0;
+    //int cmd_option_threads = 0;
     
     if ( argc < MIN_INPUT_ARGS || argc > MAX_INPUT_ARGS  ) {
         return EINVAL;
@@ -32,9 +32,11 @@ int main(int argc, const char * argv[]) {
         
         switch ( cmd_option ) {
             case SUBSTRING_CASE_DEFAULT_THREADS:
+            case SUBSTRING_CASE_CONFIG_THREADS:
                 return parallelSubstringCount(argv[INPUT_STR1], argv[INPUT_STR2]);
                 break;
 
+            /* //TODO// Future let the user decide how many threads
             case SUBSTRING_CASE_CONFIG_THREADS:
                 cmd_option_threads = atoi(argv[INPUT_THREADS]);
                 
@@ -42,7 +44,8 @@ int main(int argc, const char * argv[]) {
                 
                 return parallelSubstring(argv[INPUT_STR1], argv[INPUT_STR2], cmd_option_threads);
                 break;
-
+            */
+            
             case STRINGCAT_CASE_STACK:
                 return stringcat_stack(argv[INPUT_STR1], argv[INPUT_STR2]);
                 break;

@@ -1,0 +1,45 @@
+Looked online and found multiple algorithms for searching substrings with various memory and run times.
+
+http://algs4.cs.princeton.edu/lectures/53SubstringSearch.pdf
+
+Clarification of requirements yields the fact that the actual algorithmic run time performance and memory (not explixitly stated) complexity is not the desired outcome of this exercise.
+
+I will go down the path of trying to come up with an algorithm based on the brute force method and work on parallelizing it using multiple threads.
+
+A limit for the input string size is based on the use case, in this case we can choose something arbitrary which seems reasonable. Platforms with flat memory will eventually be limited by the max address space and availaible memory.
+
+Here is the proposal :-
+
+We split the strings into half, but there can be case where there is a substring at the split point, worst case will be when there is one char left in the other part. In this case what we can do is keep substr_size-1 from left string and substr_size-1 from right string. We will keep a third thread to go over the 2 x substr_size-1 string.
+
+Example
+Input = 123456789123456789, Str = 91
+Split = 123456789 | 123456789 | 91
+
+At each split operation we will spawn 3 threads to report the result back.
+
+What would be the criteria to split? For example if the input is size 3 and str is size 2, you will end up with
+
+123, 23
+12 | 3 | 23
+
+Seems waste of resources, because we have ended up with a string which is actually smaller that the string we need to check against.
+
+Take another example
+
+1234, 34
+12 | 34 | 23
+
+Assuming we are using memcmp and == as the operator for equivalence checks and assuming thread creation is same complexity in terms of cpu (!!! Assumption parallelization is cancelling out the overhead !!!) and we are giving a weight of 1 to each operation. Then if went through and compared without threads then worst case would be 4 operations, In case of threads it will be 3 operations to spawn 3 threads then 3 more operations to get the checks done, you are looking at 6 operations.
+
+123456, 56
+123 | 456 | 34
+
+Here, we are looking at brute force of 6. In case of 1 split it will be 3 + 2 + 3 + 1 = 9.
+
+1234567890, 90
+12345 | 67890 | 56
+
+Here, we are looking at brute force of 10. In case of 1 split it will be 3 + 4 + 5 + 1 = 13.
+
+For our case we will take 3 times as the minimum factor to do a split. So worst case is we are 1.5 times more expensive in threading case. Using 3 as a factor so that I dont have to generate really large test cases :) cheating!!!
