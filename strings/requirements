@@ -50,3 +50,11 @@ Did a pass on the exercise and have preliminary questions :-
 4. For the string cat API, when u say Heap based and Stack based API, do u mean that the caller of api is allocating memory dynamically and passing the var's via ref or the variables are in local scope and passed by value?
 
 [NL] Assume the input strings are pre-allocated (similar to how they are passed in in #1).  For the output string, one version of the API will allocate space on the heap for the result.  For the other version of the API, imagine you are working in an environment where you are prohibited from using malloc/free.  It would be more correct to say "non-heap" instead of "stack" for this part, you can get creative with where you might want to put the result, and how you think a good API in an environment like this would behave.  The only constraint is that you can't use malloc/free to create space for the result, and we'd like to see how your API and implementation will handle this.
+
+3/1/206 - Substring Calculation
+
+What should a case like this return as the answer?
+inputString = rrr substring = r
+inputString = xyxyxyxyxyx substring = xyxy
+
+[NL] As long as you document your code's performance well across corner cases like this so that a caller would know what to expect, you are free to implement whichever behavior you think is most reasonable and intuitive.

@@ -1,0 +1,27 @@
+./strings
+./strings 1 abcbscsaaa a
+./strings 1 abcbscsaaa a 4
+./strings 1 abababababababababa ab
+./strings 1 abababababababababa ab 4
+./strings 1 abababababababababa a
+./strings 1 abababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaa
+./strings 1 abababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaa 4
+./strings 1 abababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaa 4
+./strings 1 abababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaa
+./strings 1 abababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa a
+./strings 1 abababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa a
+./strings
+./strings 3 abcaaa abcx
+./strings 3 111111111111122222222 3333333333333334
+./strings 4 abcaaa abcx
+./strings 4 111111111111122222222 3333333333333334
+./strings 6 111111111111122222222 3333333333333334
+./strings 6 abcaaa abcx
+./strings 6 111111111111122222222 3333333333333334
+cat strings_unit_test_input 
+./strings 
+./strings 255 strings_unit_test_input 1
+./strings 255 strings_unit_test_input 3
+./strings 255 strings_unit_test_input 4
+./strings 255 strings_unit_test_input 6
+

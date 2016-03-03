@@ -1,0 +1,173 @@
+___________________________________________________________
+! USAGE EXAMPLES
+-----------------------------------------------------------
+
+___________________________________________________________
+!! Substring - Min 4 Threads can spawn more, example below
+!! Thread creation is done without ordering checks
+!! The code can handle arbitrary thread execution timing
+!! but it will impact how many threads get spawned
+!! The randomness is interesting and can yield either 4 or 7
+!! threads. If the processor halts thread 1
+!! to let thread 2 execute first then you will end up with 7
+!! otherwise 4 threads... Played around with this to make sure
+!! the end result was correct in both cases.
+-----------------------------------------------------------
+
+macbooks-MBP:executable deepakkundra$ ./strings
+./strings FUNC_CASE STR1 STR2 OPTIONAL_MAX_THREADS
+
+1   = SUBSTRING_CASE_DEFAULT_THREADS
+2   = SUBSTRING_CASE_CONFIG_THREADS *NOT SUPPORTED*
+3   = STRINGCAT_CASE_DEFAULT
+4   = STRINGCAT_CASE_HEAP
+5   = STRINGCAT_CASE_NON_HEAP       *NOT SUPPORTED*
+6   = STRINGCAT_CASE_PIPE
+255 = RUN_UNIT_TEST
+
+macbooks-MBP:executable deepakkundra$ ./strings 1 abababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaa
+Thread 2 returned, Total # found yet 39
+Thread 3 returned, Total # found yet 95
+Thread 4 returned, Total # found yet 97
+Thread 1 returned, Total # found 97
+macbooks-MBP:executable deepakkundra$ ./strings 1 abababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa a
+Thread 2 returned, Total # found yet 50
+Thread 3 returned, Total # found yet 108
+Thread 4 returned, Total # found yet 108
+Thread 1 returned, Total # found 108
+macbooks-MBP:executable deepakkundra$ ./strings 1 abababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa a
+Thread 5 returned, Total # found yet 21
+Thread 6 returned, Total # found yet 50
+Thread 7 returned, Total # found yet 50
+Thread 2 returned, Total # found yet 50
+Thread 3 returned, Total # found yet 108
+Thread 4 returned, Total # found yet 108
+Thread 1 returned, Total # found 108
+macbooks-MBP:executable deepakkundra$
+
+
+___________________________________________________________
+!! String Concat
+-----------------------------------------------------------
+
+macbooks-MBP:executable deepakkundra$ ./strings
+./strings FUNC_CASE STR1 STR2 OPTIONAL_MAX_THREADS
+
+1   = SUBSTRING_CASE_DEFAULT_THREADS
+2   = SUBSTRING_CASE_CONFIG_THREADS *NOT SUPPORTED*
+3   = STRINGCAT_CASE_DEFAULT
+4   = STRINGCAT_CASE_HEAP
+5   = STRINGCAT_CASE_NON_HEAP       *NOT SUPPORTED*
+6   = STRINGCAT_CASE_PIPE
+255 = RUN_UNIT_TEST
+
+macbooks-MBP:executable deepakkundra$ ./strings 3 abcaaa abcx
+STRINGCAT abcaaaabcx
+
+macbooks-MBP:executable deepakkundra$ ./strings 3 111111111111122222222 3333333333333334
+STRINGCAT 1111111111111222222223333333333333334
+
+macbooks-MBP:executable deepakkundra$ ./strings 4 abcaaa abcx
+STRINGCAT HEAP abcaaaabcx
+
+macbooks-MBP:executable deepakkundra$ ./strings 4 111111111111122222222 3333333333333334
+STRINGCAT HEAP 1111111111111222222223333333333333334
+
+macbooks-MBP:executable deepakkundra$ ./strings 6 abcaaa abcx
+STRINGCAT PIPE abcaaaabcx LEN 11
+
+macbooks-MBP:executable deepakkundra$ ./strings 6 111111111111122222222 3333333333333334
+STRINGCAT PIPE 1111111111111222222223333333333333334 LEN 38
+
+___________________________________________________________
+!! Unit Test
+-----------------------------------------------------------
+
+macbooks-MBP:executable deepakkundra$ cat strings_unit_test_input
+a a 1
+aba ba 1
+abababab ab 4
+abababab abab 3
+
+macbooks-MBP:executable deepakkundra$ ./strings
+./strings FUNC_CASE STR1 STR2 OPTIONAL_MAX_THREADS
+
+1   = SUBSTRING_CASE_DEFAULT_THREADS
+2   = SUBSTRING_CASE_CONFIG_THREADS *NOT SUPPORTED*
+3   = STRINGCAT_CASE_DEFAULT
+4   = STRINGCAT_CASE_HEAP
+5   = STRINGCAT_CASE_NON_HEAP       *NOT SUPPORTED*
+6   = STRINGCAT_CASE_PIPE
+255 = RUN_UNIT_TEST
+
+___________________________________________________________
+!!! Unit Test Substring
+-----------------------------------------------------------
+
+macbooks-MBP:executable deepakkundra$ ./strings 255 strings_unit_test_input 1
+Run Unit Test str1 a size1 1 str2 a size2 1 result 1
+Unit Test return 1 = PASS
+
+Run Unit Test str1 aba size1 3 str2 ba size2 2 result 1
+Unit Test return 1 = PASS
+
+Run Unit Test str1 abababab size1 8 str2 ab size2 2 result 4
+Thread 2 returned, Total # found yet 2
+Thread 3 returned, Total # found yet 4
+Thread 4 returned, Total # found yet 4
+Thread 1 returned, Total # found 4
+Unit Test return 4 = PASS
+
+Run Unit Test str1 abababab size1 8 str2 abab size2 4 result 3
+Unit Test return 3 = PASS
+
+___________________________________________________________
+!!! Unit Test String Concat - Default
+-----------------------------------------------------------
+
+macbooks-MBP:executable deepakkundra$ ./strings 255 strings_unit_test_input 3
+Run Unit Test str1 a size1 1 str2 a size2 1 result 1
+STRINGCAT aa
+
+Run Unit Test str1 aba size1 3 str2 ba size2 2 result 1
+STRINGCAT ababa
+
+Run Unit Test str1 abababab size1 8 str2 ab size2 2 result 4
+STRINGCAT ababababab
+
+Run Unit Test str1 abababab size1 8 str2 abab size2 4 result 3
+STRINGCAT abababababab
+
+___________________________________________________________
+!!! Unit Test String Concat - Heap
+-----------------------------------------------------------
+
+macbooks-MBP:executable deepakkundra$ ./strings 255 strings_unit_test_input 4
+Run Unit Test str1 a size1 1 str2 a size2 1 result 1
+STRINGCAT HEAP aa
+
+Run Unit Test str1 aba size1 3 str2 ba size2 2 result 1
+STRINGCAT HEAP ababa
+
+Run Unit Test str1 abababab size1 8 str2 ab size2 2 result 4
+STRINGCAT HEAP ababababab
+
+Run Unit Test str1 abababab size1 8 str2 abab size2 4 result 3
+STRINGCAT HEAP abababababab
+
+___________________________________________________________
+!!! Unit Test String Concat - NO MALLOC - AKA. PIPES
+-----------------------------------------------------------
+
+macbooks-MBP:executable deepakkundra$ ./strings 255 strings_unit_test_input 6
+Run Unit Test str1 a size1 1 str2 a size2 1 result 1
+STRINGCAT PIPE aa LEN 3
+
+Run Unit Test str1 aba size1 3 str2 ba size2 2 result 1
+STRINGCAT PIPE ababa LEN 6
+
+Run Unit Test str1 abababab size1 8 str2 ab size2 2 result 4
+STRINGCAT PIPE ababababab LEN 11
+
+Run Unit Test str1 abababab size1 8 str2 abab size2 4 result 3
+STRINGCAT PIPE abababababab LEN 13

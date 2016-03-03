@@ -19,9 +19,10 @@
 #include "common_defs.h"
 
 /*!
+ * Global variables for running concat via pipes
  */
-strings_strcat_pipe_struct pipe_names = {0};
-char g_pipe_output[MAX_STRING_SIZE] = {0};
+strings_strcat_pipe_struct ut_pipe_names = {0};
+char g_ut_pipe_output[MAX_STRING_SIZE] = {0};
 
 
 /*!
@@ -56,7 +57,7 @@ int unit_test_main(const char* str1, const char* str2, const char* str3){
     FILE * fp = NULL;
     char * line = NULL;
     size_t len = 0;
-    ssize_t read = 0;
+    ssize_t readLen = 0;
     char* token = NULL;
     char* str_input1 = NULL;
     char* str_input2 = NULL;
@@ -66,6 +67,7 @@ int unit_test_main(const char* str1, const char* str2, const char* str3){
     int str_input2_len = 0;
     int fd = 0;
     int str_out_len = 0;
+    pid_t pid;
     
     unsigned int substring_count = 0;
     //int cmd_option_threads = atoi(str3);
@@ -75,7 +77,7 @@ int unit_test_main(const char* str1, const char* str2, const char* str3){
     fp = fopen(str1, "r");
     if (fp == NULL) return EBADF;
     
-    while ((read = getline(&line, &len, fp)) != -1) {
+    while ((readLen = getline(&line, &len, fp)) != -1) {
         //TODO//
         //In addition to the set of pre-curated test strings, we should
         //test null strings passed in and the max string cases to get
@@ -86,7 +88,7 @@ int unit_test_main(const char* str1, const char* str2, const char* str3){
         //size is not enough to hold the concatenated string
         
         //Remove newline at the end of each line and replace with NULL
-        line[read-1] = '\0';
+        line[readLen-1] = '\0';
 #ifdef EXTENSIVE_DBG
         printf("Retrieved line of length %d %s\n", (int)read, line);
 #endif //EXTENSIVE_DBG
@@ -139,32 +141,46 @@ int unit_test_main(const char* str1, const char* str2, const char* str3){
                 break;
 
             case STRINGCAT_CASE_PIPE:
-                strcpy(pipe_names.input_str1_pipe, "input_str1_pipe");
-                strcpy(pipe_names.input_str2_pipe, "input_str2_pipe");
-                strcpy(pipe_names.output_str_pipe, "output_str_pipe");
-
-                //open pipe 1 write str1
-                mkfifo(pipe_names.input_str1_pipe, 0666);
-                fd = open(pipe_names.input_str1_pipe, O_WRONLY);
-                write(fd, str_input1, (str_input1_len+1));
-                close(fd);
-                unlink(pipe_names.input_str1_pipe);
+                strcpy(ut_pipe_names.input_str1_pipe, "input_str1_pipe");
+                strcpy(ut_pipe_names.input_str2_pipe, "input_str2_pipe");
+                strcpy(ut_pipe_names.output_str_pipe, "output_str_pipe");
                 
-                //open pipe 2 write str2
-                mkfifo(pipe_names.input_str2_pipe, 0666);
-                fd = open(pipe_names.input_str2_pipe, O_WRONLY);
-                write(fd, str_input2, (str_input2_len+1));
-                close(fd);
-                unlink(pipe_names.input_str2_pipe);
-
-                if( strings_strcat_pipe(&pipe_names) == 1) {
-                    //read pipe 3 and print result
-                    fd = open(pipe_names.output_str_pipe, O_RDONLY);
-                    //str_out_len = read(fd, g_pipe_output, MAX_STRING_SIZE);
-                    close(fd);
-                    printf("STRINGCAT PIPE %s\n\n", g_pipe_output);
+                mkfifo(ut_pipe_names.input_str1_pipe, 0666);
+                mkfifo(ut_pipe_names.input_str2_pipe, 0666);
+                mkfifo(ut_pipe_names.output_str_pipe, 0666);
+                
+                pid = fork();
+                if (pid == 0) {
+                    if( strings_strcat_pipe(&ut_pipe_names) == 1) {
+#ifdef EXTENSIVE_DBG
+                        printf("STRINGCAT CHILD DONE - PASS\n");
+#endif //EXTENSIVE_DBG
+                    } else {
+                        printf("STRINGCAT CHILD DONE - FAILED\n");
+                    }
+                    //We need to kill the child!!!
+                    return 0;
                 } else {
-                    printf("STRINGCAT PIPE FAILED \n\n");
+                    //open pipe 1 write str1
+                    fd = open(ut_pipe_names.input_str1_pipe, O_WRONLY);
+                    write(fd, str_input1, (str_input1_len+1));
+                    close(fd);
+                    
+                    //open pipe 2 write str2
+                    fd = open(ut_pipe_names.input_str2_pipe, O_WRONLY);
+                    write(fd, str_input2, (str_input2_len+1));
+                    close(fd);
+                    
+                    //read pipe 3 and print result
+                    fd = open(ut_pipe_names.output_str_pipe, O_RDONLY);
+                    str_out_len = read(fd, g_ut_pipe_output, MAX_STRING_SIZE);
+                    close(fd);
+                    printf("STRINGCAT PIPE %s LEN %d\n\n", g_ut_pipe_output, str_out_len);
+                    
+                    //Only parent does the unlink
+                    unlink(ut_pipe_names.input_str1_pipe);
+                    unlink(ut_pipe_names.input_str2_pipe);
+                    unlink(ut_pipe_names.output_str_pipe);
                 }
                 break;
 

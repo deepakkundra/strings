@@ -86,3 +86,17 @@ unsigned int mem_copy(char *str1, const char *str2, int n){
     
     return 0;
 }
+
+/*!
+ * @brief Utility to create pipes
+ */
+void create_pipes(void){
+    return;
+}
+
+/*!
+ * @brief Utility to destroy pipes
+ */
+void destroy_pipes(void){
+    return;
+}

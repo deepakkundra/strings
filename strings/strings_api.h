@@ -79,14 +79,15 @@ char* strings_strcat(char* str1, const char* str2, char* str3, STRINGS_API_T opt
  *
  * @param args Pointer to the pipe names for input output
  *
- * @notes Use input_str1_pipe to send string 1
- *        Use input_str2_pipe to send string 2
- *        Read from output_str_pipe the concatenated string
+ * @notes Use input_str1_pipe to get string 1
+ *        Use input_str2_pipe to get string 2
+ *        Send via output_str_pipe the concatenated string
  */
 int strings_strcat_pipe(strings_strcat_pipe_struct* args);
 
 /*!
  * @samples //TODO//
+ * For now refer the main.c or unit_test.c for example's
  */
 
 #endif /* strings_api_h */

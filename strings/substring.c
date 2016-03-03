@@ -42,6 +42,7 @@ int fnSubString(index_struct* index){
     
     //TODO//
     //Add check to make sure the char is valid
+    //For now we are using an equivalence operator
     
     for(int i = 0; \
         (i <= (index->end_index) - (index->start_index)) && \
@@ -82,7 +83,7 @@ void* ptrFnSubString(void* inPtrArgs) {
         
         //malloc is defined as MT, so we should be ok//
         //If the platform we are on makes malloc not MT, then we got to
-        //lock this call!
+        //mutex this call!
         pthread_t* thread_arr = malloc(MIN_THREADS * sizeof(pthread_t));
         if(thread_arr == NULL) return 0;
         

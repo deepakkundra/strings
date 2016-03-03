@@ -13,30 +13,30 @@
 #include "strings_api.h"
 
 /*!
- * @brief
- * @param
- * @return
+ * @brief Default string cat similar to library implementation
+ * @param str1 Destination string
+ * @param str2 Source string to be appended to the Destination string
+ * @return Pointer to concated string
  */
 char* stringcat(char* str1, const char* str2);
 
 /*!
- * @brief
- * @param
- * @return
+ * @brief Heap allocated string cat, the caller provides the output memory
+ * @param str1 Destination string
+ * @param str2 Source string to be appended to the Destination string
+ * @return Pointer to concated string
  */
 char* stringcat_heap(const char* str1, const char* str2, char* str3);
 
 /*!
- * @brief
- * @param
- * @return
+ * @brief NOT SUPPORTED - //TODO
  */
 char* stringcat_nonheap(const char* str1, const char* str2);
 
 /*!
- * @brief
- * @param
- * @return
+ * @brief This function uses pipes to communicate with the caller to get
+ *        input strings and send back the concatenated output string
+ * @param args Names of the pipes to use for communication
  */
 void* stringcat_pipe(void* args);
 

@@ -28,8 +28,10 @@ inline char* strings_strcat(char* str1, const char* str2, char* str3, STRINGS_AP
         return stringcat(str1, str2);
     } else if(option == STRINGS_API_HEAP) {
         return stringcat_heap(str1, str2, str3);
+#if 0 //TODO//
     } else if(option == STRINGS_API_NON_HEAP) {
         return stringcat_nonheap(str1, str2);
+#endif //0
     } else {
         printf("ERROR: INVALID INPUT");
         return NULL;
@@ -51,10 +53,12 @@ int strings_strcat_pipe(strings_strcat_pipe_struct* args){
     
     pthread_join(thread, &status);
     if (status == 0) {
-        printf("API success\n");
+#ifdef EXTENSIVE_DBG
+        printf("API shim success\n");
+#endif //EXTENSIVE_DBG
         return 1;
     } else {
-        printf("API failed\n");
+        printf("API shim failed\n");
     }
     
     return 0;

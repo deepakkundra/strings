@@ -72,4 +72,14 @@ unsigned int is_mem_equal(const char *str1, const char *str2, int n);
  */
 unsigned int mem_copy(char *str1, const char *str2, int n);
 
+/*!
+ * @brief Utility to create pipes
+ */
+void create_pipes(void);
+
+/*!
+ * @brief Utility to destroy pipes
+ */
+void destroy_pipes(void);
+
 #endif /* utils_h */
