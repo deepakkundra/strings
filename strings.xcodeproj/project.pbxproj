@@ -12,6 +12,7 @@
 		0B73C6141C85515E00C4AFD9 /* substring.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B73C6121C85515E00C4AFD9 /* substring.c */; };
 		0B73C6171C8551F000C4AFD9 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B73C6151C8551F000C4AFD9 /* utils.c */; };
 		0B73C61A1C855FCE00C4AFD9 /* stringcat.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B73C6181C855FCE00C4AFD9 /* stringcat.c */; };
+		0B886F0E1C87F98C007BD4E4 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 0B886F0D1C87F98C007BD4E4 /* Makefile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,6 +42,9 @@
 		0B73C61B1C8573C600C4AFD9 /* strings_unit_test_input */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = strings_unit_test_input; sourceTree = "<group>"; };
 		0B73C61C1C8578E700C4AFD9 /* common_defs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common_defs.h; sourceTree = "<group>"; };
 		0B886F0A1C86926F007BD4E4 /* algorithm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = algorithm; sourceTree = "<group>"; };
+		0B886F0B1C879384007BD4E4 /* strings_api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = strings_api.h; sourceTree = "<group>"; };
+		0B886F0C1C87B164007BD4E4 /* strings_api_shim.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = strings_api_shim.h; sourceTree = "<group>"; };
+		0B886F0D1C87F98C007BD4E4 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,9 @@
 				0B73C6191C855FCE00C4AFD9 /* stringcat.h */,
 				0B73C61B1C8573C600C4AFD9 /* strings_unit_test_input */,
 				0B73C61C1C8578E700C4AFD9 /* common_defs.h */,
+				0B886F0B1C879384007BD4E4 /* strings_api.h */,
+				0B886F0C1C87B164007BD4E4 /* strings_api_shim.h */,
+				0B886F0D1C87F98C007BD4E4 /* Makefile */,
 			);
 			path = strings;
 			sourceTree = "<group>";
@@ -154,6 +161,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B886F0E1C87F98C007BD4E4 /* Makefile in Sources */,
 				0B73C6071C8548BB00C4AFD9 /* main.c in Sources */,
 				0B73C6171C8551F000C4AFD9 /* utils.c in Sources */,
 				0B73C6111C8550E900C4AFD9 /* unit_test.c in Sources */,

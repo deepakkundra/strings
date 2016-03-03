@@ -60,7 +60,6 @@ unsigned int get_string_len(const char* str){
     return len;
 }
 
-//Replace with own memcmp util
 /*!
  * @brief Utility to compare mem
  * @param str1 array 1
@@ -72,5 +71,18 @@ unsigned int is_mem_equal(const char *str1, const char *str2, int n){
     while (n-- != 0) {
         if(*(str1+n) != *(str2+n)) return 1;
     }
+    return 0;
+}
+
+/*!
+ * @brief Utility to copy mem
+ * @param str1 array 1
+ * @param str2 array 2
+ * @param n size to copy
+ * @return The result is 0 copy passed
+ */
+unsigned int mem_copy(char *str1, const char *str2, int n){
+    while (n-- != 0) *(str1+n) = *(str2+n);
+    
     return 0;
 }

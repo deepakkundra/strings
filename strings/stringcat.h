@@ -10,19 +10,34 @@
 #define stringcat_h
 
 #include <stdio.h>
+#include "strings_api.h"
 
 /*!
  * @brief
  * @param
  * @return
  */
-unsigned int stringcat_heap(const char* str1, const char* str2);
+char* stringcat(char* str1, const char* str2);
 
 /*!
  * @brief
  * @param
  * @return
  */
-unsigned int stringcat_stack(const char* str1, const char* str2);
+char* stringcat_heap(const char* str1, const char* str2, char* str3);
+
+/*!
+ * @brief
+ * @param
+ * @return
+ */
+char* stringcat_nonheap(const char* str1, const char* str2);
+
+/*!
+ * @brief
+ * @param
+ * @return
+ */
+void* stringcat_pipe(void* args);
 
 #endif /* stringcat_h */

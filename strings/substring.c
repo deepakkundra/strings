@@ -34,6 +34,7 @@ unsigned int gThreadCount = 0;
  * @brief Sub string utility
  * @param index String to be displayed on the console
  * @return If there is an invalid char in the string return 1 else 0
+ * Valid char is an ASCII value
  */
 int fnSubString(index_struct* index){
     
@@ -78,6 +79,10 @@ void* ptrFnSubString(void* inPtrArgs) {
     //2. size of seach set is > 2 x substr_size-1, to eliminate forking middle thread
     if (gThreadCount < MAX_THREADS && (args->end_index - args->start_index) >= (2 * gSubstringLen)) {
         void *status = 0;
+        
+        //malloc is defined as MT, so we should be ok//
+        //If the platform we are on makes malloc not MT, then we got to
+        //lock this call!
         pthread_t* thread_arr = malloc(MIN_THREADS * sizeof(pthread_t));
         if(thread_arr == NULL) return 0;
         

@@ -33,10 +33,12 @@
 
 #define SUBSTRING_CASE_DEFAULT_THREADS 1
 #define SUBSTRING_CASE_CONFIG_THREADS  2
-#define STRINGCAT_CASE_STACK           3
+#define STRINGCAT_CASE_DEFAULT         3
 #define STRINGCAT_CASE_HEAP            4
-#define RUN_UNIT_TEST                  5
-#define MAX_CMD_OPTIONS                5
+#define STRINGCAT_CASE_NON_HEAP        5
+#define STRINGCAT_CASE_PIPE            6
+#define RUN_UNIT_TEST                  255
+#define MAX_CMD_OPTIONS                RUN_UNIT_TEST
 
 #define MAX_STRING_SIZE 1024
 #define MIN_STRING_SIZE 1

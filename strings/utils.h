@@ -63,4 +63,13 @@ unsigned int get_string_len(const char* str);
  */
 unsigned int is_mem_equal(const char *str1, const char *str2, int n);
 
+/*!
+ * @brief Utility to copy mem
+ * @param str1 array 1
+ * @param str2 array 2
+ * @param n size to copy
+ * @return The result is 0 copy passed
+ */
+unsigned int mem_copy(char *str1, const char *str2, int n);
+
 #endif /* utils_h */

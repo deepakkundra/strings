@@ -9,8 +9,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "common_defs.h"
+#include "strings_api.h"
 
 /*!
  * @brief Main function for the strings project which provide entry
@@ -23,6 +25,9 @@
 int main(int argc, const char * argv[]) {
     int cmd_option = 0;
     //int cmd_option_threads = 0;
+    int str_input1_len = 0;
+    int str_input2_len = 0;
+    char* str_dest = NULL;
     
     if ( argc < MIN_INPUT_ARGS || argc > MAX_INPUT_ARGS  ) {
         return EINVAL;
@@ -30,13 +35,16 @@ int main(int argc, const char * argv[]) {
         cmd_option = atoi(argv[INPUT_FUNC_CASE]);
         if ( cmd_option <= 0 || cmd_option > MAX_CMD_OPTIONS ) return EINVAL;
         
+        str_input1_len = (int)get_string_len(argv[INPUT_STR1]);
+        str_input2_len = (int)get_string_len(argv[INPUT_STR2]);
+        
         switch ( cmd_option ) {
             case SUBSTRING_CASE_DEFAULT_THREADS:
             case SUBSTRING_CASE_CONFIG_THREADS:
                 return parallelSubstringCount(argv[INPUT_STR1], argv[INPUT_STR2]);
                 break;
 
-            /* //TODO// Future let the user decide how many threads
+            /* //TODO// Future let the user decide how many threads/levels to branch at
             case SUBSTRING_CASE_CONFIG_THREADS:
                 cmd_option_threads = atoi(argv[INPUT_THREADS]);
                 
@@ -46,12 +54,22 @@ int main(int argc, const char * argv[]) {
                 break;
             */
             
-            case STRINGCAT_CASE_STACK:
-                return stringcat_stack(argv[INPUT_STR1], argv[INPUT_STR2]);
+            case STRINGCAT_CASE_DEFAULT:
+                str_dest = calloc((str_input1_len + str_input2_len + 2), sizeof(char));
+                memcpy(str_dest, argv[INPUT_STR1], str_input1_len);
+                printf("STRINGCAT %s\n\n", (strings_strcat(str_dest, argv[INPUT_STR2], NULL, STRINGS_API_DEFAULT)));
+                free(str_dest);
                 break;
                 
             case STRINGCAT_CASE_HEAP:
-                return stringcat_heap(argv[INPUT_STR1], argv[INPUT_STR2]);
+                str_dest = calloc((str_input1_len + str_input2_len + 2), sizeof(char));
+                printf("STRINGCAT HEAP %s\n\n", (strings_strcat((char*)argv[INPUT_STR1], argv[INPUT_STR2], str_dest, STRINGS_API_HEAP)));
+                free(str_dest);
+                break;
+                
+            case STRINGCAT_CASE_NON_HEAP:
+                //TODO//
+                printf("STRINGCAT NON-HEAP %s\n", (strings_strcat((char*)argv[INPUT_STR1], argv[INPUT_STR2], NULL, STRINGS_API_NON_HEAP)));
                 break;
                 
             case RUN_UNIT_TEST:
@@ -60,6 +78,7 @@ int main(int argc, const char * argv[]) {
                 break;
                 
             default:
+                printf("Command %d not recogonized", cmd_option);
                 return EINVAL;
                 break;
         }
